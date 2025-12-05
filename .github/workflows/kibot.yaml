@@ -69,3 +69,24 @@ jobs:
         compression-level: 9
         if-no-files-found: 'error'
         path: diff
+
+
+  publish:
+    runs-on: ubuntu-latest
+
+    if: github.ref=='refs/heads/main'
+    needs: fab
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.ghpages.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
