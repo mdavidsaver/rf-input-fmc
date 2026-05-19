@@ -7,7 +7,7 @@ jobs:
     name: "ERC/DRC"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: INTI-CMNB/KiBot@v2_k9
       with:
         dir: output
@@ -17,20 +17,20 @@ jobs:
     name: Fab Outputs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: INTI-CMNB/KiBot@v2_k9
       with:
         dir: output
         config: .github/kibot-fab.yaml
     - name: Full output
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: ${{ always() }}
       with:
         name: Everything
         path: output
     - name: Fab output
       id: fab
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Fab
         compression-level: 9
@@ -41,7 +41,7 @@ jobs:
           output/gerber/*
     - name: Upload gh-pages preview
       id: ghpages
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v5
       with:
         retention-days: 7
         path: output/
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.base_ref }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Tag PR base
@@ -64,7 +64,7 @@ jobs:
         config: .github/kibot-diff.yaml
     - name: Upload Diff
       id: diff
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: diff
         compression-level: 9
@@ -89,4 +89,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
